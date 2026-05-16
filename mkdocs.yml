@@ -1,5 +1,5 @@
 site_name: EvalSig
-site_description: Statistical rigor for frontier AI evaluation — paired tests, clustered SE, MDE/power.
+site_description: Statistical rigor for frontier AI evaluation. Paired tests, clustered SE, MDE and power.
 site_url: https://www.melonai.in/docs/evalsig/
 site_author: Vikram Dev
 
@@ -35,7 +35,6 @@ theme:
     - navigation.tabs
     - navigation.tabs.sticky
     - navigation.sections
-    - navigation.expand
     - navigation.top
     - navigation.tracking
     - navigation.instant
@@ -83,9 +82,47 @@ markdown_extensions:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
 
-# Extend this nav as you add docs. Anything you list must exist as a .md file in docs/.
 nav:
   - Home: index.md
+  - Get started:
+      - Installation: get-started/installation.md
+      - Quickstart: get-started/quickstart.md
+      - First comparison: get-started/first-comparison.md
+      - Understanding output: get-started/understanding-output.md
+  - Concepts:
+      - What EvalSig solves: concepts/what-evalsig-solves.md
+      - Paired vs unpaired: concepts/paired-vs-unpaired.md
+      - Clustering: concepts/clustering.md
+      - MDE and power: concepts/mde-and-power.md
+      - Effect sizes: concepts/effect-sizes.md
+      - Multiplicity: concepts/multiplicity.md
+      - Sequential testing: concepts/sequential-testing.md
+      - Glossary: concepts/glossary.md
+  - Usage:
+      - CLI: usage/cli.md
+      - Configuration: usage/configuration.md
+      - Python API: usage/python-api.md
+      - Output formats: usage/output-formats.md
+      - Integrations: usage/integrations.md
+  - Modules:
+      - types: modules/types.md
+      - exceptions: modules/exceptions.md
+      - io: modules/io.md
+      - inference: modules/inference.md
+      - compare: modules/compare.md
+      - store: modules/store.md
+      - integrations: modules/integrations.md
+      - cli: modules/cli.md
+  - Scenarios:
+      - CI release gate: scenarios/ci-release-gate.md
+      - Multi-task gates: scenarios/multi-task-gates.md
+      - Sequential watch: scenarios/sequential-watch.md
+      - A/B on RLHF checkpoints: scenarios/ab-on-rlhf-checkpoints.md
+      - Flakiness detection: scenarios/flakiness-detection.md
+      - Compliance audit trail: scenarios/compliance-audit-trail.md
+      - Auditing third-party evals: scenarios/auditing-third-party-evals.md
+  - Methodology: methodology.md
+  - Changelog: changelog.md
 
 extra:
   social:
@@ -96,7 +133,6 @@ extra:
     - icon: fontawesome/solid/globe
       link: https://www.melonai.in
 
-# KaTeX rendering for the statistical formulas (paired-t, bootstrap CI, etc.)
 extra_javascript:
   - https://polyfill.io/v3/polyfill.min.js?features=es6
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
