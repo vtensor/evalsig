@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "evalsig"
-version = "0.1.0"
+version = "0.1.2"
 description = "Statistical inference for LLM evaluations: paired tests, clustered SE, MDE, sequential testing, release gating."
 readme = "README.md"
 requires-python = ">=3.10"
