@@ -1,6 +1,6 @@
 # EVALSIG
 
-**Tell real LLM eval gains from infrastructure noise. In CI. Before you ship.**
+**Know whether your LLM eval gains are real or just noise. Catch it in CI, before shipping.**
 
 EVALSIG sits between any LLM eval harness (Inspect AI, lm-eval-harness, HELM,
 simple-evals, your internal pipeline) and the decision to ship a model. It
