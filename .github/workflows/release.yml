@@ -69,6 +69,6 @@ jobs:
           name: dist
           path: dist/
       - name: Sign each artefact
-        uses: sigstore/gh-action-sigstore-python@v3.0.0
+        uses: sigstore/gh-action-sigstore-python@v3.3.0
         with:
           inputs: dist/*.whl dist/*.tar.gz
