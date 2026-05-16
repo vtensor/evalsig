@@ -1,9 +1,0 @@
-- id: evalsig-doctor
-  name: evalsig-doctor
-  description: "Validate RunFrame JSON files against the EVALSIG schema."
-  entry: evalsig doctor
-  language: python
-  language_version: python3
-  types: [json]
-  pass_filenames: true
-  stages: [commit]

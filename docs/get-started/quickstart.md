@@ -5,8 +5,12 @@ seconds. For a longer, hand-held walkthrough, see [Your first comparison](first-
 
 ## 1. Install
 
+Not yet on PyPI; install from source:
+
 ```bash
-pip install evalsig
+git clone https://github.com/vtensor/evalsig.git
+cd evalsig
+pip install -e .
 ```
 
 ## 2. Write two runs as RunFrame JSON

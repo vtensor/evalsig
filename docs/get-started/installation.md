@@ -9,18 +9,10 @@ and PyArrow.
 * macOS, Linux, or Windows
 * About 80 MB of disk for the wheel and its dependencies
 
-## Install with pip
-
-```bash
-pip install evalsig
-```
-
-That gives you everything needed to compare runs, gate releases, write to a
-local Parquet store, and use the pytest plugin.
-
 ## Install from source
 
-If you want the bleeding-edge version, or are contributing:
+The package is not yet published to PyPI. Install the source checkout in
+editable mode:
 
 ```bash
 git clone https://github.com/vtensor/evalsig.git
@@ -29,6 +21,9 @@ python -m venv .venv
 source .venv/bin/activate
 pip install -e .
 ```
+
+That gives you everything needed to compare runs, gate releases, write to a
+local Parquet store, and use the pytest plugin.
 
 The repo also includes a research validation script:
 
@@ -44,9 +39,9 @@ full story).
 
 | Extra | When to install | Command |
 |---|---|---|
-| `docs` | Building the documentation site locally | `pip install evalsig[docs]` |
-| `dev` | Running the test suite and linters | `pip install evalsig[dev]` |
-| `braintrust` | Publishing comparison results to Braintrust | `pip install evalsig[braintrust]` |
+| `docs` | Building the documentation site locally | `pip install -e ".[docs]"` |
+| `dev` | Running the test suite and linters | `pip install -e ".[dev]"` |
+| `braintrust` | Publishing comparison results to Braintrust | `pip install -e ".[braintrust]"` |
 
 ## Verify the install
 

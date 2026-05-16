@@ -2,13 +2,11 @@
 
 **Tell real LLM eval gains from infrastructure noise — in CI, before you ship.**
 
-[![PyPI version](https://img.shields.io/pypi/v/evalsig.svg)](https://pypi.org/project/evalsig/)
 [![Python](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/)
 [![License](https://img.shields.io/badge/license-Apache--2.0-green.svg)](LICENSE)
 [![Tests](https://img.shields.io/badge/tests-45%2F45%20passing-brightgreen.svg)](VERIFICATION.md)
-[![Docs](https://img.shields.io/badge/docs-evalsig.dev-blue.svg)](https://evalsig.dev)
 
-[Documentation](https://evalsig.dev) | [Quickstart](docs/get-started/quickstart.md) | [CLI reference](docs/usage/cli.md) | [Methodology](docs/methodology.md) | [Design doc](EVALSIG.md) | [Verification](VERIFICATION.md)
+[Quickstart](docs/get-started/quickstart.md) | [CLI reference](docs/usage/cli.md) | [Methodology](docs/methodology.md) | [Design doc](EVALSIG.md) | [Verification](VERIFICATION.md)
 
 * * *
 
@@ -32,8 +30,12 @@ Monte Carlo validation.
 
 ## Quickstart
 
+Install from source (not yet published to PyPI):
+
 ```bash
-pip install evalsig
+git clone https://github.com/vtensor/evalsig.git
+cd evalsig
+pip install -e .
 ```
 
 Compare two runs:

@@ -1,14 +1,36 @@
-site_name: EVALSIG
-site_description: Tell real LLM eval gains from infrastructure noise. Paired tests, clustered SE, MDE, sequential monitoring, and a CI release gate.
+site_name: EvalSig
+site_description: Statistical rigor for frontier AI evaluation — paired tests, clustered SE, MDE/power.
+site_url: https://www.melonai.in/docs/evalsig/
 site_author: Vikram Dev
-site_url: https://evalsig.dev
-repo_url: https://github.com/vtensor/evalsig
+
 repo_name: vtensor/evalsig
+repo_url: https://github.com/vtensor/evalsig
 edit_uri: edit/main/docs/
+
+copyright: Copyright &copy; 2026 Vikram Dev
+
+use_directory_urls: true
 
 theme:
   name: material
-  language: en
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: green
+      accent: green
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: green
+      accent: green
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  font:
+    text: Inter
+    code: JetBrains Mono
   features:
     - navigation.tabs
     - navigation.tabs.sticky
@@ -27,22 +49,8 @@ theme:
     - content.tabs.link
     - content.action.edit
     - toc.follow
-  palette:
-    - scheme: default
-      primary: indigo
-      accent: indigo
-      toggle:
-        icon: material/weather-night
-        name: Switch to dark mode
-    - scheme: slate
-      primary: indigo
-      accent: indigo
-      toggle:
-        icon: material/weather-sunny
-        name: Switch to light mode
-  font:
-    text: Inter
-    code: JetBrains Mono
+  icon:
+    repo: fontawesome/brands/github
 
 plugins:
   - search
@@ -69,48 +77,26 @@ markdown_extensions:
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.details
+  - pymdownx.arithmatex:
+      generic: true
   - pymdownx.emoji:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
 
+# Extend this nav as you add docs. Anything you list must exist as a .md file in docs/.
 nav:
   - Home: index.md
-  - Get started:
-      - Installation: get-started/installation.md
-      - Quickstart: get-started/quickstart.md
-      - Your first comparison: get-started/first-comparison.md
-      - Understanding the output: get-started/understanding-output.md
-  - Concepts:
-      - What evalsig solves: concepts/what-evalsig-solves.md
-      - Paired vs unpaired: concepts/paired-vs-unpaired.md
-      - Clustered standard errors: concepts/clustering.md
-      - MDE and power: concepts/mde-and-power.md
-      - Sequential testing: concepts/sequential-testing.md
-      - Multiple comparisons: concepts/multiplicity.md
-      - Effect sizes: concepts/effect-sizes.md
-      - Glossary: concepts/glossary.md
-  - Usage:
-      - CLI reference: usage/cli.md
-      - Python API: usage/python-api.md
-      - Configuration: usage/configuration.md
-      - Output formats: usage/output-formats.md
-      - Integrations: usage/integrations.md
-  - Modules:
-      - evalsig.types: modules/types.md
-      - evalsig.io: modules/io.md
-      - evalsig.inference: modules/inference.md
-      - evalsig.compare: modules/compare.md
-      - evalsig.store: modules/store.md
-      - evalsig.cli: modules/cli.md
-      - evalsig.integrations: modules/integrations.md
-      - evalsig.exceptions: modules/exceptions.md
-  - Scenarios:
-      - CI release gate: scenarios/ci-release-gate.md
-      - A/B on RLHF checkpoints: scenarios/ab-on-rlhf-checkpoints.md
-      - Flakiness detection: scenarios/flakiness-detection.md
-      - Auditing third-party evals: scenarios/auditing-third-party-evals.md
-      - Multi-task gates: scenarios/multi-task-gates.md
-      - Sequential watch in CI: scenarios/sequential-watch.md
-      - Compliance audit trail: scenarios/compliance-audit-trail.md
-  - Methodology: methodology.md
-  - Changelog: changelog.md
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/vtensor/evalsig
+    - icon: fontawesome/brands/python
+      link: https://pypi.org/project/evalsig/
+    - icon: fontawesome/solid/globe
+      link: https://www.melonai.in
+
+# KaTeX rendering for the statistical formulas (paired-t, bootstrap CI, etc.)
+extra_javascript:
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js

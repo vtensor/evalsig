@@ -61,19 +61,6 @@ attack surface is small:
 That said, please treat us like any package: pin a known version,
 verify the wheel signature, and review the changelog before upgrading.
 
-## Cryptographic signatures
-
-Each release on PyPI is signed with a Sigstore identity. Verify with:
-
-```bash
-pip install sigstore
-python -m sigstore verify identity \
-    --bundle evalsig-0.1.0-py3-none-any.whl.sigstore \
-    --cert-identity 'https://github.com/vtensor/evalsig/.github/workflows/release.yml@refs/tags/v0.1.0' \
-    --cert-oidc-issuer 'https://token.actions.githubusercontent.com' \
-    evalsig-0.1.0-py3-none-any.whl
-```
-
 ## Bug bounty
 
 EVALSIG does not run a paid bug bounty program. We do publish a
