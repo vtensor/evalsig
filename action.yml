@@ -1,0 +1,80 @@
+name: "EVALSIG release gate"
+description: "Statistically defensible release gate for LLM evals: paired tests, clustered SE, MDE, sequential."
+author: "Vikram Dev"
+branding:
+  icon: "check-circle"
+  color: "blue"
+
+inputs:
+  baseline:
+    description: "Path to the baseline run file."
+    required: true
+  candidate:
+    description: "Path to the candidate run file."
+    required: true
+  format:
+    description: "Reader format: runframe, lm_eval, inspect, helm, or parquet."
+    required: false
+    default: "runframe"
+  metric:
+    description: "Metric name to extract."
+    required: false
+    default: "accuracy"
+  cluster:
+    description: "Cluster id field on each item (optional)."
+    required: false
+    default: ""
+  min_delta:
+    description: "Smallest effect size the policy accepts (e.g. 0.005)."
+    required: true
+  alpha:
+    description: "Significance level."
+    required: false
+    default: "0.05"
+  power:
+    description: "Target power for the MDE computation."
+    required: false
+    default: "0.80"
+  method:
+    description: "auto / paired_t / paired_permutation / paired_bootstrap / mcnemar / cluster_bootstrap."
+    required: false
+    default: "auto"
+  one_sided:
+    description: "One-sided 'candidate > baseline' test."
+    required: false
+    default: "true"
+
+outputs:
+  verdict:
+    description: "ALLOW, REJECT, or INCONCLUSIVE."
+  delta:
+    description: "Observed delta (candidate - baseline)."
+  p_value:
+    description: "Test p-value."
+  mde:
+    description: "Minimum detectable effect at the requested power."
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.11"
+    - name: Install evalsig
+      shell: bash
+      run: pip install --quiet evalsig
+    - name: Run gate
+      shell: bash
+      env:
+        INPUT_BASELINE: ${{ inputs.baseline }}
+        INPUT_CANDIDATE: ${{ inputs.candidate }}
+        INPUT_FORMAT: ${{ inputs.format }}
+        INPUT_METRIC: ${{ inputs.metric }}
+        INPUT_CLUSTER: ${{ inputs.cluster }}
+        INPUT_MIN_DELTA: ${{ inputs.min_delta }}
+        INPUT_ALPHA: ${{ inputs.alpha }}
+        INPUT_POWER: ${{ inputs.power }}
+        INPUT_METHOD: ${{ inputs.method }}
+        INPUT_ONE_SIDED: ${{ inputs.one_sided }}
+      run: python -m evalsig.integrations.github_action

@@ -1,0 +1,9 @@
+# Default reviewer for every change.
+* @vtensor
+
+# The statistical core needs a domain-aware review.
+/src/evalsig/inference/ @vtensor
+
+# Documentation changes that ship to evalsig.dev.
+/docs/ @vtensor
+/mkdocs.yml @vtensor

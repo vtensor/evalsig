@@ -1,0 +1,43 @@
+name: Methodology question
+description: A question about which test to use, when, and why.
+labels: ["question", "methodology"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        EVALSIG is a statistics library, so "which test should I use?" is a
+        first-class question. Please describe the data shape and what you
+        are trying to decide; we will help and may turn the answer into a
+        docs page.
+
+  - type: textarea
+    id: data
+    attributes:
+      label: Data shape
+      description: |
+        How many items? Binary scores or continuous? Are items paired
+        across runs? Are items grouped (passages, templates)?
+    validations:
+      required: true
+
+  - type: textarea
+    id: decision
+    attributes:
+      label: Decision you are making
+      description: Promote a model? Audit a vendor claim? Run an A/B?
+    validations:
+      required: true
+
+  - type: textarea
+    id: what_you_tried
+    attributes:
+      label: What you tried in evalsig
+      description: Any commands or Python snippets you have already run.
+
+  - type: textarea
+    id: question
+    attributes:
+      label: The question
+      description: The single question you need answered.
+    validations:
+      required: true

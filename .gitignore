@@ -1,0 +1,52 @@
+# Virtualenvs
+.venv/
+venv/
+env/
+
+# Python build / cache
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.egg
+build/
+dist/
+.eggs/
+*.so
+
+# Tests
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# Type checkers
+.mypy_cache/
+.ruff_cache/
+.pyre/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*~
+
+# MkDocs
+site/
+
+# EVALSIG local store + telemetry
+.evalsig/
+*.evalsig
+.evalsig_telemetry.jsonl
+
+# Local validation outputs
+/tmp/evalsig_validate/
+
+# Secrets and tokens (defense in depth)
+.env
+.env.*
+*.pem
+*.key

@@ -1,0 +1,53 @@
+name: Feature request
+description: A new capability or an improvement to an existing one.
+labels: ["enhancement", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the suggestion. The most useful feature requests describe
+        the *problem* first, then the proposed solution. Let us know if you
+        have already tried something that did not work.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: The problem
+      description: |
+        What are you trying to do that you cannot do today? Include the eval
+        workflow, the harness you use, and what the result would unlock.
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed solution
+      description: |
+        What would the ideal API or CLI look like? A few lines of Python or
+        a CLI invocation is enough.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Workarounds you tried; libraries that almost did this.
+
+  - type: dropdown
+    id: scope
+    attributes:
+      label: Where would this live?
+      multiple: true
+      options:
+        - Inference primitives (evalsig.inference)
+        - Compare / gate orchestration
+        - I/O readers
+        - Store
+        - CLI
+        - Integrations (pytest, GitHub Action, Braintrust)
+        - Documentation
+        - Other
+    validations:
+      required: true
