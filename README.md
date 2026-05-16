@@ -1,6 +1,6 @@
 # EVALSIG
 
-**Tell real LLM eval gains from infrastructure noise — in CI, before you ship.**
+**Tell real LLM eval gains from infrastructure noise. In CI. Before you ship.**
 
 [![Python](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/)
 [![License](https://img.shields.io/badge/license-Apache--2.0-green.svg)](LICENSE)

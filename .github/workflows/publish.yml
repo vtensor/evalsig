@@ -2,7 +2,7 @@ name: Publish
 
 # Manual only. Fires only when a maintainer clicks "Run workflow" in
 # the Actions tab and provides the tag they want to publish. We do NOT
-# auto-trigger on tag pushes — accidental tags should not ship to PyPI.
+# auto-trigger on tag pushes; accidental tags should not ship to PyPI.
 on:
   workflow_dispatch:
     inputs:

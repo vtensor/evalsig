@@ -1,4 +1,4 @@
-# EVALSIG — Design Doc
+# EVALSIG: Design Doc
 
 | | |
 |---|---|
@@ -31,7 +31,7 @@ LLM evals are noisy, and the field reports point deltas as if they were signals.
 2. **Infrastructure noise.** Anthropic published a 6pp (p<0.01) swing on Terminal-Bench 2.0 from resource config alone, and 1.54pp on SWE-bench from 5× RAM [1]. Even at temperature=0, batch size and kernel fusion produce stochastic outputs [4][5].
 3. **No paired inference.** Frontier models correlate 0.3–0.7 question-to-question. Comparing two models on the same items has 2–4× lower variance than independent samples. The literature calls this "free variance reduction" [6]. Zero commercial eval tools ship it.
 4. **No clustered SE.** Most public benchmarks have items grouped by passage, problem stem, or template. Naive SE under-counts variance by **>3×** in those cases [6]. Inspect AI ships `cluster=` as the only exception in the entire field.
-5. **No MDE.** Practitioners ask "I see a 1.2pp delta — is it real?" The honest answer requires power analysis given α, β, observed SD, and cluster structure. No commercial tool tells them how many items they would have needed to detect 1.2pp at 80% power.
+5. **No MDE.** Practitioners ask "I see a 1.2pp delta. is it real?" The honest answer requires power analysis given α, β, observed SD, and cluster structure. No commercial tool tells them how many items they would have needed to detect 1.2pp at 80% power.
 
 ### 2.2 Evidence the gap is open
 
@@ -109,25 +109,25 @@ The wedge is statistics, the literature is mature, and the budget exists.
 
 ### 5.1 Harnesses (eval runners, not stats engines)
 
-- **lm-evaluation-harness (EleutherAI)** — the de facto OSS harness, 200+ tasks, plugin via `@register_model`/`@register_filter`, YAML task configs, results JSON with `acc_stderr` [GitHub](https://github.com/EleutherAI/lm-evaluation-harness). Stats stop at bootstrap stderr. **EVALSIG reads its JSON output.**
-- **Inspect AI (UK AISI)** — best-engineered framework in the field. `dataset → Task → Solver → Scorer` primitives, `.eval` log format with published schema, native `bootstrap_stderr()` and `cluster=` kwarg [Inspect docs](https://inspect.aisi.org.uk/). **EVALSIG ingests its `.eval` files as a first-class input.**
-- **HELM (Stanford CRFM)** — research-grade, bootstrap CIs per scenario, no paired or power machinery [arXiv:2211.09110](https://arxiv.org/abs/2211.09110).
-- **OpenAI Evals / simple-evals** — minimal repros, zero stats.
-- **Promptfoo** — pass/fail in CI, no stats.
-- **Lighteval (HF)** — backs Open LLM Leaderboard, no stats layer.
+- **lm-evaluation-harness (EleutherAI)**: the de facto OSS harness, 200+ tasks, plugin via `@register_model`/`@register_filter`, YAML task configs, results JSON with `acc_stderr` [GitHub](https://github.com/EleutherAI/lm-evaluation-harness). Stats stop at bootstrap stderr. **EVALSIG reads its JSON output.**
+- **Inspect AI (UK AISI)**: best-engineered framework in the field. `dataset → Task → Solver → Scorer` primitives, `.eval` log format with published schema, native `bootstrap_stderr()` and `cluster=` kwarg [Inspect docs](https://inspect.aisi.org.uk/). **EVALSIG ingests its `.eval` files as a first-class input.**
+- **HELM (Stanford CRFM)**: research-grade, bootstrap CIs per scenario, no paired or power machinery [arXiv:2211.09110](https://arxiv.org/abs/2211.09110).
+- **OpenAI Evals / simple-evals**: minimal repros, zero stats.
+- **Promptfoo**: pass/fail in CI, no stats.
+- **Lighteval (HF)**: backs Open LLM Leaderboard, no stats layer.
 
 ### 5.2 Platforms (SaaS observability + eval)
 
-- **Braintrust** — $124M raised, $800M valuation [7]. Strong dataset versioning + side-by-side. **No paired tests, no MDE.** They will likely build this eventually; EVALSIG ships now.
-- **LangSmith** — strong on tracing, weak on inference.
-- **Patronus** — sells evaluator-models-as-a-service. Different layer.
-- **Galileo** — Series B $45M, proprietary "Luna" small-LM evaluators. Different layer.
-- **Arize Phoenix / W&B Weave / Vellum / HoneyHive** — tracing-first.
+- **Braintrust**: $124M raised, $800M valuation [7]. Strong dataset versioning + side-by-side. **No paired tests, no MDE.** They will likely build this eventually; EVALSIG ships now.
+- **LangSmith**: strong on tracing, weak on inference.
+- **Patronus**: sells evaluator-models-as-a-service. Different layer.
+- **Galileo**: Series B $45M, proprietary "Luna" small-LM evaluators. Different layer.
+- **Arize Phoenix / W&B Weave / Vellum / HoneyHive**: tracing-first.
 
 ### 5.3 Eval libraries (metric computation)
 
-- **DeepEval / Confident AI** — "pytest for LLMs", flagship `G-Eval` LLM-as-judge. No aggregate inference.
-- **RAGAS** — reference-free RAG metrics. Same.
+- **DeepEval / Confident AI**: "pytest for LLMs", flagship `G-Eval` LLM-as-judge. No aggregate inference.
+- **RAGAS**: reference-free RAG metrics. Same.
 
 ### 5.4 The gap, in one sentence
 
@@ -204,7 +204,7 @@ Suggestion: collect 12,400 more items (estimated) to reach 0.005 MDE at 80% powe
 
 - Run history per project (timeline of model_id × eval_id × delta with CIs).
 - Flakiness panel (variance per task across "no-op" reruns).
-- Power-decay panel (MDE drifting up as you reuse the same items — contamination signal).
+- Power-decay panel (MDE drifting up as you reuse the same items: contamination signal).
 - Regression patterns ("model_B drops on cluster=passage_45 in 7/10 reruns").
 - Compliance export: signed JSON snapshot per release decision.
 
@@ -345,7 +345,7 @@ evalsig/
 
 - **Modules are nouns.** `inference`, `io`, `compare`, `store`, `cli`. Each is exactly one responsibility.
 - **Files inside modules are concrete tests or types.** No `helpers.py`, no `misc.py`. If a thing doesn't fit a noun, it doesn't exist yet.
-- **`inference` is a leaf module.** It depends on nothing but NumPy/SciPy. This is the testability promise — the math is decoupled from the world. Property tests verify each estimator's coverage with Monte Carlo; golden tests pin numeric outputs against R (`coin`, `boot`) and statsmodels.
+- **`inference` is a leaf module.** It depends on nothing but NumPy/SciPy. This is the testability promise. the math is decoupled from the world. Property tests verify each estimator's coverage with Monte Carlo; golden tests pin numeric outputs against R (`coin`, `boot`) and statsmodels.
 - **`compare` orchestrates inference.** Never the reverse. Dependency direction: `cli → compare → inference`. Never `inference → compare`. (Dependency-inversion principle.)
 - **`store` is optional.** OSS works without it. SaaS reads/writes it.
 - **`io` ingests, `compare` reasons, `store` persists, `cli` presents.** Onion architecture.
@@ -383,7 +383,7 @@ class RunFrame(BaseModel):
     model_id: str
     task_id: str
     metric_name: str
-    items: Sequence[ItemResult]   # not Pandas — pure typed records
+    items: Sequence[ItemResult]   # not Pandas. pure typed records
     config_hash: str              # stable hash of (model, params, harness version)
 
 class ComparisonResult(BaseModel):
@@ -453,12 +453,12 @@ def compare(
 Click + Rich. One command per verb (`compare`, `gate`, `mde`, `history`, `doctor`). Every command emits machine-readable JSON via `--json` and human-readable TTY otherwise. CI integration is `evalsig gate ... --json report.json` and parsing the exit code.
 
 Exit codes:
-- `0` — release allowed (significant improvement at requested MDE)
-- `1` — release rejected (not significant)
-- `2` — inconclusive (underpowered run; suggest more items)
-- `64` — usage error (bad CLI args)
-- `65` — data error (schema validation failure, misaligned pairs)
-- `70` — internal error (please file a bug)
+- `0`: release allowed (significant improvement at requested MDE)
+- `1`: release rejected (not significant)
+- `2`: inconclusive (underpowered run; suggest more items)
+- `64`: usage error (bad CLI args)
+- `65`: data error (schema validation failure, misaligned pairs)
+- `70`: internal error (please file a bug)
 
 These map to BSD sysexits.h conventions, which CI systems already understand.
 
@@ -646,11 +646,11 @@ Pricing anchored to comparable AI-eval SaaS (Braintrust Pro $249, LangSmith Plus
 
 | Phase | Scope | Duration |
 |---|---|---|
-| **M0 — Foundation** | Repo scaffold, `types`, `io.inspect_log`, `io.lm_eval`, `inference.paired_t`, `inference.paired_permutation`, `cli.compare`, golden tests against R. | 4 weeks |
-| **M1 — Release Gate** | `inference.cluster_bootstrap`, `inference.mcnemar`, `inference.mde`, `inference.power`, `compare.gate`, GitHub Action, pytest plugin. Methodology doc. | 4 weeks |
-| **M2 — History** | `store` module (Parquet + manifest), `cli.history`, sequential testing (`inference.sequential`). | 4 weeks |
-| **M3 — SaaS MVP** | Postgres + S3 ingest, dashboards (Next.js), auth (Clerk), Stripe billing, first 5 design partners. | 8 weeks |
-| **M4 — Compliance & GA** | SOC2 prep, signed reports, Braintrust + LangSmith integration plugins, public launch + HN. | 8 weeks |
+| **M0. Foundation** | Repo scaffold, `types`, `io.inspect_log`, `io.lm_eval`, `inference.paired_t`, `inference.paired_permutation`, `cli.compare`, golden tests against R. | 4 weeks |
+| **M1. Release Gate** | `inference.cluster_bootstrap`, `inference.mcnemar`, `inference.mde`, `inference.power`, `compare.gate`, GitHub Action, pytest plugin. Methodology doc. | 4 weeks |
+| **M2. History** | `store` module (Parquet + manifest), `cli.history`, sequential testing (`inference.sequential`). | 4 weeks |
+| **M3. SaaS MVP** | Postgres + S3 ingest, dashboards (Next.js), auth (Clerk), Stripe billing, first 5 design partners. | 8 weeks |
+| **M4. Compliance & GA** | SOC2 prep, signed reports, Braintrust + LangSmith integration plugins, public launch + HN. | 8 weeks |
 
 Total to GA: ~28 weeks. Two-person team. Founder + one senior backend.
 
@@ -658,11 +658,11 @@ Total to GA: ~28 weeks. Two-person team. Founder + one senior backend.
 
 ## 17. SOLID + Engineering Principles Applied
 
-- **S — Single Responsibility.** `inference` does math, `io` does I/O, `store` does persistence, `cli` does presentation. No module owns two concerns.
-- **O — Open/Closed.** Adding a new statistical method = new file in `inference/` + new entry in `compare/_methods.py` registry. Zero edits to existing code.
-- **L — Liskov.** `Reader` Protocol in `io/base.py`: all readers return `RunFrame`. Swapping readers never breaks consumers.
-- **I — Interface segregation.** No god-class `EvalsigClient`. Each module exports the minimum surface its users need.
-- **D — Dependency inversion.** `inference` depends on `numpy`, period. It never imports from `io`, `store`, or `cli`. Higher layers depend on `inference`.
+- **S. Single Responsibility.** `inference` does math, `io` does I/O, `store` does persistence, `cli` does presentation. No module owns two concerns.
+- **O. Open/Closed.** Adding a new statistical method = new file in `inference/` + new entry in `compare/_methods.py` registry. Zero edits to existing code.
+- **L. Liskov.** `Reader` Protocol in `io/base.py`: all readers return `RunFrame`. Swapping readers never breaks consumers.
+- **I. Interface segregation.** No god-class `EvalsigClient`. Each module exports the minimum surface its users need.
+- **D. Dependency inversion.** `inference` depends on `numpy`, period. It never imports from `io`, `store`, or `cli`. Higher layers depend on `inference`.
 
 Other principles enforced:
 - **Pure functions in `inference`.** Easier to test, parallelise, JIT.
